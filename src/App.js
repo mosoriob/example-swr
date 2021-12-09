@@ -1,25 +1,11 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useCovidCountryConfirmed  } from "./hooks/use-models";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const { country, isError, isLoading} = useCovidCountryConfirmed("chile")
+  if (isLoading) return <p> loading </p>
+  if (isError) return <p>{JSON.stringify(isError)}</p>
+  return <p>{country[0].Cases}</p>
 }
 
 export default App;
